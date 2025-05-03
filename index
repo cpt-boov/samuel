@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="media.css">
+</head>
+<body>
+    <audio src="media/01_farangis.mp3"></audio>
+    <button class="previuosMusic">Prevuios</button>
+    <button class="playMusic">Play</button>
+    <button class="nextMusic">Next</button>
+    <button class="PauseMusic">Pause</button>
+    <button class="RepeatMusic">Repeat Music</button>
+    <button class="RepeatList">Repeat List</button>
+    <span class="timePlayed">00:00</span>
+    <script src="music.js"></script>
+</body>
+</html>
