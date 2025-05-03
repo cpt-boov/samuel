@@ -1,0 +1,79 @@
+const allBtns = document.querySelectorAll("button");
+const audio = document.querySelector("audio");
+const allMusic = ["media/01_farangis.mp3",
+    "media/sia -dusk till dawn(320).mp3",
+    "media/Shadmehr Aghili .Bavar.mp3",
+   "media/naser_abdollahi_ghoseh.mp3",
+   "media/ghost_-_mary_on_a_cross.mp3",
+   "media/01. Shadmehr Aghili - Angizeh.mp3",
+   "media/06. Reza Sadeghi - Dige Nemitonam.mp3"
+];
+const timeLine = document.querySelector(".timePlayed")
+audio.addEventListener("timeupdate" , function (){ 
+  const minute = Math.floor(audio.currentTime / 60) ;
+  const second = Math.floor(audio.currentTime % 60) ;
+  let curTime = audio.currentTime;
+  if (minute === 0 && second < 10){
+    timeLine.innerHTML = `0${minute}:0${second}`
+  } else if (second >= 10 && minute === 0) {
+    timeLine.innerHTML = `0${minute}:${second}`
+  } else if (second < 10 && minute > 0) {
+    timeLine.innerHTML = `0${minute}:0${second}`
+  } else if (second >= 10 && minute < 10) {
+    timeLine.innerHTML = `0${minute}:${second}`
+  }  else {
+    timeLine.innerHTML = `${minute}:${second}`
+  }
+  if (curTime === audio.duration){
+    timeLine.innerHTML = `00:00`
+  }
+})
+
+let musicIndex = 0 ;
+allBtns.forEach((btn)=> btn.addEventListener("click" , function(){
+    btn.blur()
+    if (btn.className === "previuosMusic"){ 
+      preMusic();
+    } else if (btn.className === 'playMusic') {
+      audio.play();
+    } else if (btn.className === 'nextMusic') {
+      nextMusic()
+    } else if (btn.className === 'PauseMusic') {
+        audio.pause();
+    } else if (btn.className ==="RepeatMusic") {
+      audio.setAttribute("loop" , "true") 
+      audio.play();
+    } else if (btn.className === "RepeatList") {
+      btn.classList.add("md");
+      RepeatList();
+    }
+}) )
+
+function nextMusic () {
+  musicIndex++;
+  if (musicIndex > 6) {
+   musicIndex = 0;
+  }
+  audio.src = allMusic[musicIndex];
+  audio.play()
+}
+
+function preMusic () {
+  if (musicIndex ===  0 ) {
+    musicIndex = 6;
+ } else {
+    musicIndex--;
+ }
+ audio.src = allMusic[musicIndex];
+ audio.play()
+}
+
+function RepeatList () {
+  audio.addEventListener("timeupdate" , function(){
+    let timeMusic = audio.duration;
+    let curTimeMusic = audio.currentTime;
+    if (timeMusic === curTimeMusic) {
+      nextMusic()
+    }
+  })
+}
